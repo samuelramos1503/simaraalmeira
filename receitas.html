@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área VIP de Receitas Funcionais — Dra. Simara Almeida</title>
+  <meta name="description" content="Acesso exclusivo a receitas funcionais, shots anti-inflamatórios e infusões terapêuticas para pacientes VIP da Dra. Simara Almeida.">
+  <link rel="icon" type="image/png" href="./assets/images/logo_symbol.png">
+  
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  
+  <!-- Ícones Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Biblioteca de Criptografia AES-256 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+  <style>
+    :root {
+      --color-bg-dark: #173c38;
+      --color-bg-dark-alt: #102b28;
+      --color-bg-darker: #0b1e1c;
+      --color-card-white: #ebf0ef;
+      --color-gold: #c5a059;
+      --color-gold-hover: #b08d46;
+      --color-gold-light: #e2cb96;
+      --color-gold-soft: rgba(197, 160, 89, 0.18);
+      --color-text-light: #ffffff;
+      --color-text-muted-light: #cbe3df;
+      --color-text-dark: #173c38;
+      --color-text-muted-dark: #41615d;
+      --color-whatsapp: #25d366;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.25);
+      --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.35);
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg-dark);
+      color: var(--color-text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HEADER */
+    .vip-header {
+      background: rgba(11, 30, 28, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand img { height: 42px; }
+    .brand-name { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: #ffffff; }
+    .brand-vip-badge {
+      background: var(--color-gold);
+      color: var(--color-text-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-site {
+      color: var(--color-gold);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--transition-fast);
+    }
+    .btn-site:hover { color: #ffffff; }
+    .btn-lock {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      color: var(--color-gold-light);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--transition-fast);
+    }
+    .btn-lock:hover { background: rgba(197, 160, 89, 0.2); }
+
+    /* ==================== TELA DE BLOQUEIO (SENHA VIP COM CRIPTOGRAFIA) ==================== */
+    #lockScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 3rem 1.5rem;
+      background: radial-gradient(circle at center, #173c38 0%, #0b1e1c 100%);
+    }
+
+    .lock-card {
+      background: var(--color-bg-dark-alt);
+      border: 2px solid var(--color-gold);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .lock-icon-wrap {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: rgba(197, 160, 89, 0.15);
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: var(--color-gold);
+      box-shadow: 0 0 25px rgba(197, 160, 89, 0.25);
+    }
+
+    .lock-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+    .lock-title em { color: var(--color-gold); font-style: normal; }
+
+    .lock-subtitle {
+      font-size: 0.94rem;
+      color: var(--color-text-muted-light);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .password-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .password-input {
+      width: 100%;
+      padding: 1rem 3rem 1rem 1.2rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1.5px solid rgba(197, 160, 89, 0.5);
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: all var(--transition-fast);
+      text-align: center;
+    }
+    .password-input:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 15px rgba(197, 160, 89, 0.35);
+    }
+    .toggle-pass-btn {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--color-gold);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-unlock {
+      background: var(--color-gold);
+      color: var(--color-text-dark);
+      border: none;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-unlock:hover {
+      background: var(--color-gold-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
+    }
+
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .lock-footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(197, 160, 89, 0.2);
+      font-size: 0.85rem;
+      color: var(--color-text-muted-light);
+    }
+    .lock-footer a {
+      color: var(--color-gold);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .lock-footer a:hover { text-decoration: underline; }
+
+    /* ==================== ÁREA DE RECEITAS VIP (DESBLOQUEADA) ==================== */
+    #vipHub {
+      display: none;
+      flex: 1;
+      padding: 2.5rem 0 5rem;
+    }
+
+    .vip-hero-banner {
+      background: linear-gradient(135deg, rgba(16,43,40,0.95), rgba(11,30,28,0.95));
+      border: 2px solid var(--color-gold);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .vip-hero-banner { grid-template-columns: auto 1fr; }
+    }
+
+    .vip-author-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--color-gold);
+      box-shadow: var(--shadow-md);
+    }
+
+    .vip-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+    .vip-hero-title em { color: var(--color-gold); font-style: normal; }
+    .vip-hero-desc {
+      font-size: 0.98rem;
+      color: var(--color-text-muted-light);
+      line-height: 1.6;
+    }
+
+    /* FILTROS E BUSCA */
+    .controls-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (min-width: 992px) {
+      .controls-wrap {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(197, 160, 89, 0.35);
+      color: var(--color-text-muted-light);
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .cat-btn:hover {
+      border-color: var(--color-gold);
+      color: #ffffff;
+      background: rgba(197, 160, 89, 0.15);
+    }
+    .cat-btn.active {
+      background: var(--color-gold);
+      color: var(--color-text-dark);
+      border-color: var(--color-gold);
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 260px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.65rem 1rem 0.65rem 2.4rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1.5px solid rgba(197, 160, 89, 0.4);
+      border-radius: var(--radius-full);
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .search-input:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-gold);
+      font-size: 1.1rem;
+    }
+
+    /* GRID DE RECEITAS */
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    @media (min-width: 768px) {
+      .recipes-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .recipes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .recipe-card {
+      background: var(--color-card-white);
+      color: var(--color-text-dark);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--color-gold);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+    .recipe-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .recipe-header {
+      padding: 1.4rem 1.4rem 1rem;
+      border-bottom: 1.5px solid rgba(197, 160, 89, 0.25);
+    }
+    .recipe-cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--color-bg-dark);
+      color: var(--color-gold);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+    .recipe-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--color-text-dark);
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+    .recipe-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-text-muted-dark);
+    }
+    .recipe-meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+    .recipe-body {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      flex: 1;
+    }
+
+    .recipe-section-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-gold-hover);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .ingredients-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .ingredients-list li::before {
+      content: '✓';
+      color: var(--color-gold-hover);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .steps-list {
+      list-style: decimal inside;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #2b4542;
+    }
+
+    .nutri-tip-box {
+      background: rgba(23, 60, 56, 0.08);
+      border-left: 3px solid var(--color-gold);
+      padding: 0.8rem 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      color: var(--color-text-dark);
+      margin-top: auto;
+    }
+    .nutri-tip-box strong { color: var(--color-bg-dark); }
+
+    /* FOOTER */
+    .vip-footer {
+      background: var(--color-bg-darker);
+      border-top: 1px solid rgba(197, 160, 89, 0.25);
+      padding: 2.5rem 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--color-text-muted-light);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER VIP -->
+  <header class="vip-header">
+    <div class="container header-content">
+      <a href="index.html" class="brand">
+        <img src="./assets/images/logo_symbol.png" alt="Logo Dra. Simara Almeida">
+        <div>
+          <div class="brand-name">Dra. Simara Almeida</div>
+          <span class="brand-vip-badge">🌟 Espaço Exclusivo VIP</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="index.html" class="btn-site">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          Voltar ao Site
+        </a>
+        <button id="lockBtn" class="btn-lock" style="display: none;" onclick="lockVIP()">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          Bloquear Acesso
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== TELA 1: PORTAL DE SENHA VIP ==================== -->
+  <main id="lockScreen">
+    <div class="lock-card">
+      <div class="lock-icon-wrap">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+      </div>
+
+      <h1 class="lock-title">Portal de Receitas <em>VIP</em></h1>
+      <p class="lock-subtitle">
+        Conteúdo protegido por <strong>criptografia exclusiva</strong> para pacientes da <strong>Dra. Simara Almeida</strong>. Digite sua senha de acesso abaixo:
+      </p>
+
+      <form class="password-form" onsubmit="event.preventDefault(); handleUnlockAttempt();">
+        <div class="input-wrap">
+          <input type="password" id="vipPasswordInput" class="password-input" placeholder="Digite sua senha VIP" autocomplete="off" autofocus>
+          <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" aria-label="Mostrar ou ocultar senha">
+            <ion-icon id="eyeIcon" name="eye-outline"></ion-icon>
+          </button>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-unlock">
+          <ion-icon name="lock-open-outline"></ion-icon>
+          Acessar Conteúdo VIP
+        </button>
+
+        <div id="errorMsg" class="error-msg">
+          ⚠️ Senha incorreta. Verifique com a Dra. Simara no WhatsApp.
+        </div>
+      </form>
+
+      <div class="lock-footer">
+        Esqueceu sua senha ou ainda não é paciente VIP?<br>
+        <a href="https://api.whatsapp.com/send/?phone=5533999783832&text=Olá+Dra.+Simara!+Gostaria+de+solicitar+minha+senha+para+o+Portal+de+Receitas+VIP." target="_blank" rel="noopener">
+          👉 Solicitar Senha no WhatsApp Oficial
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== TELA 2: HUB DE RECEITAS DESBLOQUEADO ==================== -->
+  <main id="vipHub" class="container">
+    
+    <!-- BANNER DE BOAS-VINDAS DA NUTRICIONISTA -->
+    <div class="vip-hero-banner">
+      <img src="./assets/images/simara_tea.jpg" alt="Dra. Simara Almeida" class="vip-author-photo">
+      <div>
+        <h2 class="vip-hero-title">Caderno Digital de <em>Receitas Funcionais</em></h2>
+        <p class="vip-hero-desc">
+          Querido(a) paciente, estas receitas foram criadas para promover a <strong>desinflamação celular, modulação da microbiota intestinal</strong> e trazer sabor com praticidade para o seu dia a dia. Bom apetite e excelente recuperação!
+        </p>
+      </div>
+    </div>
+
+    <!-- CONTROLES: FILTROS POR CATEGORIA E BUSCA -->
+    <div class="controls-wrap">
+      <div class="category-pills">
+        <button class="cat-btn active" onclick="filterCategory('todos', this)">
+          <span>🌟</span> Todas as Receitas
+        </button>
+        <button class="cat-btn" onclick="filterCategory('shots', this)">
+          <span>⚡</span> Shots Matinais
+        </button>
+        <button class="cat-btn" onclick="filterCategory('cafe', this)">
+          <span>🥞</span> Café &amp; Lanches
+        </button>
+        <button class="cat-btn" onclick="filterCategory('refeicoes', this)">
+          <span>🥗</span> Almoço &amp; Jantar
+        </button>
+        <button class="cat-btn" onclick="filterCategory('chas', this)">
+          <span>🍵</span> Chás Digestivos
+        </button>
+        <button class="cat-btn" onclick="filterCategory('doces', this)">
+          <span>🍫</span> Doces Saudáveis
+        </button>
+      </div>
+
+      <div class="search-box">
+        <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar por ingrediente..." oninput="searchRecipes()">
+      </div>
+    </div>
+
+    <!-- GRID DINÂMICO DE RECEITAS (DESCRIPTOGRAFADO EM TEMPO REAL) -->
+    <div class="recipes-grid" id="recipesContainer">
+      <!-- Os cards são gerados dinamicamente via JS após descriptografia segura -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="vip-footer">
+    <div class="container">
+      <p style="margin-bottom: 0.4rem; color: #ffffff; font-weight: 700;">
+        Dra. Simara Almeida • Nutricionista Funcional &amp; Gastroenterologia
+      </p>
+      <p style="font-size: 0.8rem;">
+        Conteúdo exclusivo para pacientes. Protegido por criptografia AES-256. Proibida a reprodução sem autorização.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPT DE CRIPTOGRAFIA & RENDERIZAÇÃO ==================== -->
+  <script>
+    /**
+     * DADOS CRIPTOGRAFADOS COM AES-256 (OpenSSL EVP_BytesToKey):
+     * O conteúdo das receitas NÃO existe em texto puro nesta página nem no HTML.
+     * Somente quem possui a senha correta ('SIMARAVIP' ou 'VIP2026' ou 'PRIME2026')
+     * consegue desencriptar o JSON em memória no navegador.
+     */
+    const ENCRYPTED_PAYLOADS = {
+      'SIMARAVIP': 'U2FsdGVkX1+D4eskHVHQIeIO1P1+/ukyKhegEji4qlrYZiLVLH5GK/l60/bxfRdworqPBmlGLMFuLiV2axh5VCZgQDDxTHhvzcQaJy49obXwL8fjQ4L5hCNWWDtesczDK3UgsLJyTOr9/1dhlHtMoWDnKQmOVjXZpQMiBACjEzrBI7vrfTdVQ2LL4wPpb+C9AKlhPTwfR7C4xJeidsKqDg1jC+k8qMAlrkAchRJs+XqvXTFgWicatqGAKy8jJzjG0+wpXKqXQ0D8X9Fbjz3jzW8x5DGjTRC+ytCzJcjDBpe2D3JAglyPBgRBD120GcrHipwtqUyhci95U3hG575h0mIuMT3WA38rsWE6KIp87qcclNL6VdBZw6+SlNSOu5VoOWdw5dPQH6O6Vae5brgwkks4u5foINTGWhpFdYPrUsuQ4vfUrIK6mVu+z2bbHc09DNQpo8E63Qt3pGOepsrBYyHiYpvtNsEMGHGXSFMIS8JYDpekj8dy0TsdmTJa1aTOZQ4VP5etKIrkJCiZu9fx3t5xt8VayRUacQIeVrLTQpltRAKExV3BbJvrfobFZd1unMTvHoi6cMEfXifIZyURO+A2D3qaxeRoU5Qz9hS05I0nZUGrr8azZ0NsWww+VxlCH3JuzqO5jNe095qchqxIpJfC/RxubD+/oEpPeo2tkyxQlxrBUaq4BhRwZ91hU7VMZl5x1BLg4JJrqAZ/8x9lNHAB75HAOIuwreR79H3Y3KlzDyWN87YPirLDJIxd3rrAeYVgfQ9BAt22wqH3dteLHWZim3GCFP7eWe7FPo62/jy5cXv2CuB3x9llctCVdO1Jw0XgdJQhiyHvtRDYheJZ5xi/sWz0ckgxJJ+oAfFO+MUvaUpY1vOpcmr2J4XJ87Sev5/8JTZcFJFLeq0Ir5XzNCyb3IZU8JyaQI9bml707NqXjVjJlq9dxXODazVBS2qc1GKk12v5WiJvTAjMPvcH1BbBWJEeaiI39KfIhhFK4jTCFbDDVmKI1/vLc3Q+F+zPb4nz4vMvM7itCPNN2GhjD48ZYlbfQ8p4wXQJqvHeKFp2SnuDz7TUTM0FcE/TsS9K+t71R5OuKsrIm1OA0PvHtaSOXjz5R1SR+qW9DHKnmVmBGlEF2ts5u34EOMjkz7EL1rr4KD1q5IdTMb+nQmvfeY2IPpTBcmkN5lZHQzxbT7BIKrgurNS1SaNCVNHkxvcavBUr8NxhAF2xRFmsD4t+yfvAH0S6rcRp9FlVb9tJSkjTbDzBclW5oyqACUo0//w/oUDlYNQ062+VKVZQ3wntHmSo9crqIH8EZqLjl69Sh7AKxDljtMiK1cT4lL2SkH4i4ysSbjTAizStZ0RnLt3FzHbiDnR3rd2ntJr35oVdj/R1SLxHs8K0lNWFptUwqolMWH+nD7RnYAm6Hp8xDXZJF2VVQND9kRRiwskXOZsO1LCF+wP7QC1mSQH64qjZaMY54fE/DFOwS39N+JjUdA1gOpmsOPRrxVqV8lykPQRoNO/Hsl2d/HF0rTpi5MbSqzj/z6XGUY6a/ZWG14CEEmg2L3Z1JLpBHWhRB7U+adK35kNHh3CrQdUtUnqi4mIgpEHjwvFGmgf28L9TVJqGIBJSnwx5zMweztzqUrP1ZEqV4Be8p7EYkBkWh53DgTRL+YoNOuPqKEN6PDLEoZu0200Gc0gM2uOyj4mJtJb0RVK+LaDdokrVDnAtA3Q3JtX+nektZFsk4eD2t3IlIW3uQvD/WyzDLIir9hQpmx00evC+PHGhZ2ou6pY+FHIo7eicn0bTpuTfM6gJzwtjSiH9EF1PnHOux6UxYNnWlsA+oEhyOjhrIf66YEcq2v59FqSBWWPW+M39QBqYgq4M8NgCicNb983TA0w3WUwlbz87JQ49p0NriRuP2RbHmtuI6vva2YjpIR75hKvAtFSIAQyO5CT8MsRpEEsTJZDn8/om83rf6UvZuUXfK1H6O5YXwZSgmYBkvBXEZZOhni62aXSJpXuctuDaj36Zw3Wi3ShZSBRFErKIDWAHL9Wh13IgVpmGyBchxVwlbBW3ieOyw3pkvuL572BnB5qKJocZZLjcYiulmSxCjhK8/R1QS5NCRvj40Uu3UraSXTS/DLL4at8+i7hm7+GLJY0gzyDXPZ7nEdNDO8zJjtRu29dqX9PHffgbksBRk96z3n15z6LYHF4QHUrlbVB0pGyGwIv4Coy1wDcp5iutiV4aadQpXBKih4+lDA8iq3EWMLPebnjwHih47A1X+eT7unJFUc8ebzxgqkht3svaIgKF/pkvYYmsBYKmMMnKzBHbaA8qOiz5cIwxwif/cX8hXJMRnTp+L2EHy+bmD/Sjz/DnPx9dei6qxM2nwxV22C+aq/5rYnXYW2VMTL/4/LwKMA59PQJn+l99inE+0JWzDk2J3J3XKnLLTmqDkVafnCQ6svMJAwZAfoo25II2WA4C8iaS9v1rUo4QvtVuWuTDYTILrijdMexetwBY/5S+t5OpifO5vkucLsVPuidwXMJj5ACuPC7uSsZ0+fkBtEfCVXXYZQXgIS3X2bJJen5RARqKdEg25OcNpkoq9fxLD/sb4oDfb3XDENHImYzJhpCvyvi29fsPN+yAA2RcYBmKcSxXlhdIvNTFX6XvKrUowISvXC/WgJM3h+X8FUupOE9TGub1przV4qPwPoOa2Aun9NvIQpHzqpA2yTiNtK4NUWorlHi2ZsnjcKWN8PKWscPxbWZO+z5+xKkdm4Tt/ZcZi+6iHqJd13HY5nU2vJGFoF55jCKqIuftG8QuNi6xpmvvc8Jgr/Ng5OGrwAAKx+Dbv8OvHjeIdfeJJucxlH7/oR87PaUoJXnGNFEltxLUlI4/w+nr/AWynaWIIeyUKxsIijLeWOA5rx6IFx7Lgex74xwRjddmDc8VfgXS2/qgvrfx4dxBj+kzFniZqEZekxkuFkqkyzdmnf8SG/ajO7VTX00C3nUnlTy6BS+x9O5na09uNuHpFBIZMsNbNE7e9HaNJCyqbeCXVRFe6rYKWzSDjTuefC8ggx6LPdH6b5wl1bguLMS96uEXu6NInZxuKUREecmt+hyZNVtDfub3lLEx+zZV2xLDnuMGTwmZy8hDGBPa5pfaNwIXCv7QqdY/tjY+fl12BZog2EUuVTA/fimQVAarHBUE2IEEVlYpl19vzP9N6uNjdBpZMj7MWwLXxYhJ7tMaBtptWQqp0WZOp2kDRmaCwT64DZey0gPAFkf01JKXJn7NuJvBEFcxVci+jfahjM655P6Zi3W2ZEBjH9gQDZ5tEGf3+7uXyZyocI2ygFi7/xjh7ZVP+b96Z1a9kvda35J9wd7fz6STPE6ELOlWkc8ix5r0L9CBbe5PrqJapTTle7WqUKy5HCjSjhSWuKhRAHMkSmM+81gRv1vs/NkK8AQjJoFH0Qj9jLoiAtluRCQHb3XTIe6uv1tw43IlBWYsDvu9cuoJXjVMD9cbMiE8jAAAgEkniwx3TXm+48Gq+r2IRZNF/vNflZ7rXqwEbqhFj1Sj1ThQmEczLbht1uSjuIsZjPfy0fa6+46DvP470Gj93JVDnu5e4y30/vJrL9KGWRQHAKVju9F+rJDVQWtt72HrhmrBhzYQBWcZQAhnFv9org5WDElq0dBWdF/3cWkFRfYHLSKMcXOgfklUlkmmQLVmo3bstBKAs5g6CkEFnXhhtT243IWYC3Es56PZG+sEgN5oyKP7ZD7CDdEstKDCbr9VdE3dSCLtngbixjIKp2MOT6jBrGOT4wRvs+dO7lulfTCWLQW4O0HZ6+JKD6xRlW/NkL3z4Sy9yE8VSsE/rj6PLO3usSRMXCeUAy/VJZnj3pr6o/k+kPBRMRNu3ESDUqRL+8Co/aAqYePastSg6Ehyggm59r1FHM1qdNCmiBelMOhfc5BXSidXz0AgESirQ92zcNTu6cIokdg12Ler0y6ZXg1cU+hh2m/R3qa3LHhJ6m8e29teQiRr2YPRti2iwSO0pxWhQpf6nB34jJ0LLWnFr7cufPTeyZ3t8haCNJc+tPDdOCwaxaKZZXQoWozV5cH3sRK+Ea9066UcCx9PzlnIXAr5m4eQ8IKeldS0OFiuiws0Mj7AWbYyVeGLbF6YPDHTgpsiyWmS+v2Ec4+igrXaItgu0DbC6r5N496RcniSp8oPC4oOugjVGrbBzix/Ywm59YGkOvg1wnD1jaBde0E/0/cCVDtK2Shig9pw+THeYY0pRBg1nw0y6PKerl04Nku/26qECOBkwkUDGAu2cSf939RyTc2q7571etshaSBAQ0/ooO0Do9P6eatf8fhLc9jDHkvaBC04xIH9+6EhbDzUse246BY61xpMq6G6Cg0Y7jQWS9Iia8jbBthdCjIBe2MHnU6XK9yApF8FtntxjDddG4pre7hmQIPJmiyxyXowT+tueI+IwAWgWe6fEz1aI3Yj0lCCc5FgW0K4daeRZZvbpdOxSeSD8ClgaUcVNTaZoeqcIAbmnV+pBfrZPmUx+9VEou/tFd/cU/bYiesA2leCa8GKB7BwIyLI3I+LdWkKGRC6s7mPcAn0s/PkkPUD79sH7RdQCwqlaoAgdBJx0LhByx/WrNzZjAQyMfCbPG/wCwMXd/2yQJw59dNGDVaDTtnBb3qU8Y9/mz3g1R76+LrLZMkAAd8UOcqcJDobKX6LE4Dhvh0M6VahCmy2OP0E+kSi9arCKi7jsZTXNhP3qhGz0PfweZiOBaWWMEx+4AVUGW+0DS+7b5V6hOeoilYh0uWA2Fif9fDI3CC0Cm8+qysU6UAELZ1+Dk7Ov2gDtGuX7N1fRR25QEweYCFyQoEp5Vp34UgHOFZGMLWp0l8cEmjKAD+Hy5rC9JQOHq2n5eY63qp0/zCI0+9sCBp4OI4h38un3WklYt4It0zGdeltg0g8osV+YMT0khkGjxi+5zeKTlKQScWJt8taABoee6g0xe1yMXhgszZWxyr80G8aZDZDcGiN8DFYDBox0cOzz0sPeejweIUwViZLMfQcnJtXL2eRdlO9bs52ZZuY1aVMceFfyQeVKypohRyIECax5f4TItfszKo7T+mDUwQc9mPbvjBY7WUKI9R9UcI0W+OkHDSKDvP97ija2IakNDX+Ki2103Z2BJmaSwNud/CRM/qfr/kA6b/pBQLwRcdKEegHvBH3PniUsShR10UwruQcLx2IxrT6JZzZFAL4qbzCM/v6BfCKsU3Vo68ttME63PzNxogjhyKDVIrw1aYoME3kCk0TzUknDDL6Y8YWNFsO1w467WX9grDDfqb9gNOF2K4LfG37PIql2KYdx8YKA5NXmwSqSzPJ+QsBnq0WiSfLR3m58IDB+5sVWePzQBEeuFgnNF3T83JaV1lBZZmUY9L/2l6qaeybixIMt0LM1IDExqfs9Ja9BIWMYngBwvKSbw8t7Isg9DjizNoHsGQBaviFOAi1pM8xGZd+aSgbOGYziU3UZmMvuCuZN2FZQdNfq3MvvYlEk42fJzarKfRPJOoUM4QagJd40n+jH/JKqSA+vtzSEgLk2bOVjQY8YBkwO58Y/2UXu6NpZ8KHcSuIuoh1drNU64MuDLkrkTJmnOJxWBwqdsCa0wK063LeEB54M9mkwaatNtuvk1W/OjoNTJtnAfxegdL4JRmOmYK6fXuDxWggXJEl9phnxOI6Dzka39BXoU0978EnrfMA4Jlpg+vBLMo0BS8O+JO9G7s5F/pFD+gObB41SMcPc1B07fsjBYHDSWooTT7twTfrb8CyTHmEMZfrBTcN4EHQjsfe4CR0UfxlCHFyA4eDi0AQ6qkEh3KeFdoPqVi8/vc/PGpSfceMkhma104aNJR3HRow2RyHPGQIATwyGAL+ONTM5x2OxxEBSdJPZLEGdqO6u7EX2pyuzDtcoN8O3EihhI+za9nZWxd/XZE3iz51vAZQIq2/FqM1yZ3feddKDkLoZ3shO77UAmSfLt1wg68E0ndzOLnVgCkoEC/efZKH50Aekczu6nmF77tNmtfsMfm9uiAdnw0d3xraLryhOdJvgMIeM5AQyIdSIHTWQgFw5YtEgczBKyBVNx+fY64eHDFith5YHrwGlGDelsfOXorqaspeS9B0DpbC44uV5gC/wma7SzbvQooalGs=',
+      'SIMARA': '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',
+      'VIP2026': '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',
+      'PRIME2026': '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'
+    };
+
+    let decryptedRecipes = [];
+    const STORAGE_KEY_PASS = 'simara_vip_cached_key';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Tenta restaurar senha da sessão salva no navegador
+      const cachedKey = localStorage.getItem(STORAGE_KEY_PASS);
+      if (cachedKey && tryDecryptAndRender(cachedKey, false)) {
+        return;
+      }
+
+      // 2. Suporte a Link Mágico no WhatsApp (Ex: receitas.html?senha=SIMARAVIP)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlSenha = urlParams.get('senha') || urlParams.get('token');
+      if (urlSenha && tryDecryptAndRender(urlSenha, true)) {
+        return;
+      }
+    });
+
+    function handleUnlockAttempt() {
+      const input = document.getElementById('vipPasswordInput');
+      const errorMsg = document.getElementById('errorMsg');
+      const enteredPass = input.value.trim().toUpperCase();
+
+      if (!enteredPass) {
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      if (tryDecryptAndRender(enteredPass, true)) {
+        errorMsg.style.display = 'none';
+      } else {
+        errorMsg.style.display = 'block';
+        input.style.borderColor = '#ff6b6b';
+        input.focus();
+      }
+    }
+
+    function tryDecryptAndRender(passwordAttempt, saveToStorage = true) {
+      const passClean = passwordAttempt.trim().toUpperCase();
+      const ciphertext = ENCRYPTED_PAYLOADS[passClean] || ENCRYPTED_PAYLOADS['SIMARAVIP'];
+
+      try {
+        const bytes = CryptoJS.AES.decrypt(ciphertext, passClean);
+        const decryptedUtf8 = bytes.toString(CryptoJS.enc.Utf8);
+
+        if (!decryptedUtf8 || decryptedUtf8.length < 10) {
+          return false;
+        }
+
+        const parsedData = JSON.parse(decryptedUtf8);
+        if (Array.isArray(parsedData) && parsedData.length > 0) {
+          decryptedRecipes = parsedData;
+          renderRecipes(decryptedRecipes);
+
+          // Alterna as telas
+          document.getElementById('lockScreen').style.display = 'none';
+          document.getElementById('vipHub').style.display = 'block';
+          document.getElementById('lockBtn').style.display = 'inline-flex';
+
+          if (saveToStorage) {
+            localStorage.setItem(STORAGE_KEY_PASS, passClean);
+          }
+          return true;
+        }
+      } catch (err) {
+        console.error('Falha na descriptografia:', err);
+      }
+      return false;
+    }
+
+    function renderRecipes(recipesList) {
+      const container = document.getElementById('recipesContainer');
+      container.innerHTML = '';
+
+      recipesList.forEach(recipe => {
+        const card = document.createElement('article');
+        card.className = 'recipe-card';
+        card.setAttribute('data-category', recipe.category);
+
+        const metaHtml = recipe.meta.map(m => `<span>${m}</span>`).join('');
+        const ingredientsHtml = recipe.ingredients.map(ing => `<li>${ing}</li>`).join('');
+        const stepsHtml = recipe.steps.map(step => `<li>${step}</li>`).join('');
+
+        card.innerHTML = `
+          <div class="recipe-header">
+            <span class="recipe-cat-badge">${recipe.badge}</span>
+            <h3 class="recipe-title">${recipe.title}</h3>
+            <div class="recipe-meta">
+              ${metaHtml}
+            </div>
+          </div>
+          <div class="recipe-body">
+            <div>
+              <h4 class="recipe-section-title"><ion-icon name="nutrition-outline"></ion-icon> Ingredientes</h4>
+              <ul class="ingredients-list">
+                ${ingredientsHtml}
+              </ul>
+            </div>
+            <div>
+              <h4 class="recipe-section-title"><ion-icon name="restaurant-outline"></ion-icon> Modo de Preparo</h4>
+              <ol class="steps-list">
+                ${stepsHtml}
+              </ol>
+            </div>
+            <div class="nutri-tip-box">
+              <strong>Dica da Dra. Simara:</strong> ${recipe.tip}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function lockVIP() {
+      localStorage.removeItem(STORAGE_KEY_PASS);
+      decryptedRecipes = [];
+      document.getElementById('recipesContainer').innerHTML = '';
+      document.getElementById('vipHub').style.display = 'none';
+      document.getElementById('lockScreen').style.display = 'flex';
+      document.getElementById('lockBtn').style.display = 'none';
+      const input = document.getElementById('vipPasswordInput');
+      if (input) {
+        input.value = '';
+        input.style.borderColor = 'rgba(197, 160, 89, 0.5)';
+        input.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('vipPasswordInput');
+      const eye = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        eye.setAttribute('name', 'eye-off-outline');
+      } else {
+        input.type = 'password';
+        eye.setAttribute('name', 'eye-outline');
+      }
+    }
+
+    function filterCategory(cat, btnElement) {
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+
+      const cards = document.querySelectorAll('.recipe-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (cat === 'todos' || cardCat === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchRecipes() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.recipe-card');
+
+      cards.forEach(card => {
+        const title = card.querySelector('.recipe-title').textContent.toLowerCase();
+        const ingredients = card.querySelector('.ingredients-list').textContent.toLowerCase();
+        const tip = card.querySelector('.nutri-tip-box').textContent.toLowerCase();
+
+        if (title.includes(query) || ingredients.includes(query) || tip.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
