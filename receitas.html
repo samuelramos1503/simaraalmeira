@@ -83,21 +83,36 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
       text-decoration: none;
       color: inherit;
+      min-width: 0;
     }
-    .brand img { height: 42px; }
-    .brand-name { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; color: #ffffff; }
+    .brand img { height: 42px; width: auto; object-fit: contain; flex-shrink: 0; }
+    .brand-info-wrap { display: flex; flex-direction: column; align-items: flex-start; }
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
     .brand-vip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
       background: var(--color-gold);
       color: var(--color-text-dark);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      padding: 0.25rem 0.6rem;
+      padding: 0.22rem 0.65rem;
       border-radius: var(--radius-full);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      width: fit-content;
+      margin-top: 3px;
     }
 
     .header-actions {
@@ -524,6 +539,15 @@
       color: var(--color-text-muted-light);
       margin-top: auto;
     }
+    /* RESPONSIVIDADE HEADER MOBILE */
+    @media (max-width: 600px) {
+      .vip-header { padding: 0.65rem 0; }
+      .header-content { gap: 0.4rem; }
+      .brand img { height: 34px; }
+      .brand-name { font-size: 0.95rem; }
+      .brand-vip-badge { font-size: 0.6rem; padding: 0.16rem 0.5rem; letter-spacing: 0.02em; }
+      .btn-site { font-size: 0.78rem; padding: 0.35rem 0.6rem; }
+    }
   </style>
 </head>
 <body>
@@ -533,7 +557,7 @@
     <div class="container header-content">
       <a href="index.html" class="brand">
         <img src="./assets/images/logo_symbol.png" alt="Logo Dra. Simara Almeida">
-        <div>
+        <div class="brand-info-wrap">
           <div class="brand-name">Dra. Simara Almeida</div>
           <span class="brand-vip-badge">🌟 Espaço Exclusivo VIP</span>
         </div>
