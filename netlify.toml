@@ -1,2 +1,11 @@
 [build.environment]
   NETLIFY_FEEDBACK_WIDGET = "false"
+
+[context.production.environment]
+  NETLIFY_FEEDBACK_WIDGET = "false"
+
+[context.deploy-preview.environment]
+  NETLIFY_FEEDBACK_WIDGET = "false"
+
+[context.branch-deploy.environment]
+  NETLIFY_FEEDBACK_WIDGET = "false"

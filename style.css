@@ -1092,4 +1092,24 @@ a {
   font-weight: 700;
 }
 
+/* ==================== OCULTAR BARRA / WIDGET DE FEEDBACK DO NETLIFY ==================== */
+iframe[src*="netlify"],
+iframe[id*="netlify"],
+div[id*="netlify"],
+div[class*="netlify"],
+[data-netlify-deploy-preview-banner],
+.netlify-feedback-widget,
+#netlify-drawer,
+netl-drawer {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  z-index: -9999 !important;
+}
+
 
