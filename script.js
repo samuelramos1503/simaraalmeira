@@ -167,19 +167,24 @@ function updateConsultationStatus() {
   if (!statusIndicator || !statusTitle) return;
 
   const now = new Date();
-  const day = now.getDay(); // 0 = Dom, 1 = Seg ... 6 = Sáb
+  const day = now.getDay(); // 0 = Dom, 1 = Seg, 2 = Ter, 3 = Qua, 4 = Qui, 5 = Sex, 6 = Sáb
   const hours = now.getHours();
 
-  // Atendimento: Seg a Sex das 08h às 18h
-  let isOpen = false;
-  if (day >= 1 && day <= 5 && hours >= 8 && hours < 18) {
-    isOpen = true;
-  }
+  // Atendimento Presencial/Clínico: Segunda a Quinta das 08h às 20h
+  const isConsultationOpen = (day >= 1 && day <= 4 && hours >= 8 && hours < 20);
+  // Sexta-feira: Apenas agendamentos e suporte das 08h às 18h
+  const isFridayScheduling = (day === 5 && hours >= 8 && hours < 18);
 
-  if (isOpen) {
+  if (isConsultationOpen) {
     statusIndicator.className = 'pulse-dot';
-    statusTitle.textContent = 'Consultório Aberto • Agendamentos Disponíveis no WhatsApp';
+    statusIndicator.style.backgroundColor = '#10b981';
+    statusTitle.textContent = 'Consultório em Atendimento • Agendamentos Abertos até às 20h';
     statusTitle.style.color = '#10b981';
+  } else if (isFridayScheduling) {
+    statusIndicator.className = 'pulse-dot';
+    statusIndicator.style.backgroundColor = '#c5a059';
+    statusTitle.textContent = 'Sexta-feira: Plantão de Agendamentos e Suporte no WhatsApp';
+    statusTitle.style.color = '#e2cb96';
   } else {
     statusIndicator.className = 'status-indicator';
     statusIndicator.style.backgroundColor = '#fbbf24';
