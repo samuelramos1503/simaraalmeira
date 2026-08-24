@@ -9,18 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile Navigation Toggle
   const burger = document.getElementById('burger');
   const nav = document.getElementById('nav');
+  const navCloseBtn = document.getElementById('navCloseBtn');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function openNav() {
+    if (nav) nav.classList.add('open');
+    if (burger) burger.setAttribute('aria-expanded', 'true');
+    if (navOverlay) navOverlay.classList.add('active');
+  }
+
+  function closeNav() {
+    if (nav) nav.classList.remove('open');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
+    if (navOverlay) navOverlay.classList.remove('active');
+  }
 
   if (burger && nav) {
     burger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', isOpen);
+      if (nav.classList.contains('open')) {
+        closeNav();
+      } else {
+        openNav();
+      }
     });
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
+    if (navCloseBtn) navCloseBtn.addEventListener('click', closeNav);
+    if (navOverlay) navOverlay.addEventListener('click', closeNav);
+
+    document.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+      link.addEventListener('click', closeNav);
     });
   }
 

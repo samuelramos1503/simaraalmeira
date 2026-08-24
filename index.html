@@ -43,6 +43,11 @@
 
       <div class="nav-wrapper">
         <nav class="nav" id="nav" aria-label="Navegação principal">
+          <!-- Botão Fechar Menu Mobile -->
+          <button class="nav-close-btn" id="navCloseBtn" aria-label="Fechar menu de navegação">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
           <a href="#sobre" class="nav-link">Sobre Mim</a>
           <a href="#metodo" class="nav-link">A Consulta</a>
           <a href="#especialidades" class="nav-link">Especialidades</a>
@@ -55,6 +60,7 @@
             Agendar Consulta
           </a>
         </nav>
+        <div class="nav-overlay" id="navOverlay"></div>
       </div>
 
       <button class="burger" id="burger" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="nav">
