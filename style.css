@@ -273,6 +273,31 @@ a {
 .burger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px; }
 .burger span { display: block; width: 24px; height: 2px; background-color: var(--color-text-dark); border-radius: 2px; }
 
+.nav-recipes-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #ffffff;
+  color: var(--color-text-dark);
+  border: 1.5px solid var(--color-gold);
+  padding: 0.48rem 0.95rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(197, 160, 89, 0.2);
+}
+.nav-recipes-btn ion-icon { font-size: 1.1rem; color: var(--color-gold); }
+.nav-recipes-btn:hover {
+  background: var(--color-gold);
+  color: #173c38;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.4);
+}
+.nav-recipes-btn:hover ion-icon { color: #173c38; }
+
 .nav-vip-btn {
   display: inline-flex;
   align-items: center;
@@ -302,8 +327,9 @@ a {
 }
 
 @media (min-width: 992px) and (max-width: 1250px) {
-  .nav { gap: 0.75rem; }
-  .nav-link { font-size: 0.8rem; }
+  .nav { gap: 0.65rem; }
+  .nav-link { font-size: 0.78rem; }
+  .nav-recipes-btn { font-size: 0.78rem; padding: 0.38rem 0.7rem; }
   .nav-vip-btn { font-size: 0.78rem; padding: 0.38rem 0.7rem; }
   .btn-sm { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
   .brand-name { font-size: 1.15rem; }
