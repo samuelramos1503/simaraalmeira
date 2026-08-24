@@ -39,9 +39,88 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Gallery Slider for Dra. Simara (Section #sobre)
+  initDoctorGallery();
+
   // Check Live Status
   updateConsultationStatus();
 });
+
+function initDoctorGallery() {
+  const slides = document.querySelectorAll('.gallery-slide');
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+  const btnPrev = document.getElementById('galleryPrev');
+  const btnNext = document.getElementById('galleryNext');
+
+  if (!slides || slides.length === 0) return;
+
+  let currentSlide = 0;
+  let autoSlideTimer = null;
+
+  function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentSlide = index;
+
+    slides.forEach((slide, i) => {
+      slide.style.display = i === currentSlide ? 'block' : 'none';
+      slide.classList.toggle('active', i === currentSlide);
+    });
+
+    thumbs.forEach((thumb, i) => {
+      if (i === currentSlide) {
+        thumb.style.borderColor = 'var(--color-gold)';
+        thumb.style.opacity = '1';
+        thumb.style.transform = 'scale(1.03)';
+      } else {
+        thumb.style.borderColor = 'transparent';
+        thumb.style.opacity = '0.55';
+        thumb.style.transform = 'scale(1)';
+      }
+    });
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      nextSlide();
+      resetTimer();
+    });
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      prevSlide();
+      resetTimer();
+    });
+  }
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const idx = parseInt(thumb.getAttribute('data-index'), 10);
+      showSlide(idx);
+      resetTimer();
+    });
+  });
+
+  function startTimer() {
+    autoSlideTimer = setInterval(nextSlide, 5000);
+  }
+
+  function resetTimer() {
+    if (autoSlideTimer) clearInterval(autoSlideTimer);
+    startTimer();
+  }
+
+  startTimer();
+}
 
 function updateConsultationStatus() {
   const statusIndicator = document.getElementById('statusIndicator');
