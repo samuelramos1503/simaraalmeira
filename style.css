@@ -746,3 +746,107 @@ a {
 }
 .whatsapp-float:hover { transform: scale(1.1); background-color: var(--color-whatsapp-hover); }
 .whatsapp-icon { width: 34px; height: 34px; }
+
+/* ==================== GALERIA DE FOTOS DA DRA. SIMARA ==================== */
+.doctor-gallery-container {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.gallery-main-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-lg);
+  background: var(--color-bg-dark-alt);
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+
+.gallery-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.gallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(16, 43, 40, 0.85);
+  color: var(--color-gold);
+  border: 1.5px solid var(--color-gold);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  font-size: 1.35rem;
+}
+
+.gallery-nav-btn:hover {
+  background: var(--color-gold);
+  color: var(--color-text-dark);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.gallery-nav-btn.prev { left: 12px; }
+.gallery-nav-btn.next { right: 12px; }
+
+.gallery-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.gallery-thumb {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: all 0.25s ease;
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.gallery-thumb.active {
+  border-color: var(--color-gold);
+  opacity: 1;
+  transform: scale(1.04);
+}
+

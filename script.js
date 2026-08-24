@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initDoctorGallery() {
-  const track = document.getElementById('galleryTrack');
   const slides = document.querySelectorAll('.gallery-slide');
   const thumbs = document.querySelectorAll('.gallery-thumb');
   const btnPrev = document.getElementById('galleryPrev');
@@ -58,39 +57,55 @@ function initDoctorGallery() {
   let currentSlide = 0;
   let autoSlideTimer = null;
 
-  function showSlide(index) {
+  function showSlide(index, direction = 'next') {
+    if (index === currentSlide && slides[currentSlide].classList.contains('active')) return;
+
+    const previousSlide = currentSlide;
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     currentSlide = index;
 
-    // Rolagem horizontal fluida do carrossel
-    if (track) {
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-
     slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === currentSlide);
+      if (i === currentSlide) {
+        slide.style.transition = 'none';
+        slide.style.transform = direction === 'next' ? 'translateX(30px)' : 'translateX(-30px)';
+        slide.style.opacity = '0';
+        slide.style.visibility = 'visible';
+
+        void slide.offsetWidth; // Força repaint
+
+        slide.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        slide.classList.add('active');
+        slide.style.transform = 'translateX(0)';
+        slide.style.opacity = '1';
+      } else if (i === previousSlide) {
+        slide.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        slide.style.transform = direction === 'next' ? 'translateX(-30px)' : 'translateX(30px)';
+        slide.style.opacity = '0';
+        setTimeout(() => {
+          if (i !== currentSlide) {
+            slide.classList.remove('active');
+            slide.style.visibility = 'hidden';
+          }
+        }, 350);
+      } else {
+        slide.classList.remove('active');
+        slide.style.visibility = 'hidden';
+        slide.style.opacity = '0';
+      }
     });
 
     thumbs.forEach((thumb, i) => {
-      if (i === currentSlide) {
-        thumb.style.borderColor = 'var(--color-gold)';
-        thumb.style.opacity = '1';
-        thumb.style.transform = 'scale(1.05)';
-      } else {
-        thumb.style.borderColor = 'transparent';
-        thumb.style.opacity = '0.55';
-        thumb.style.transform = 'scale(1)';
-      }
+      thumb.classList.toggle('active', i === currentSlide);
     });
   }
 
   function nextSlide() {
-    showSlide(currentSlide + 1);
+    showSlide(currentSlide + 1, 'next');
   }
 
   function prevSlide() {
-    showSlide(currentSlide - 1);
+    showSlide(currentSlide - 1, 'prev');
   }
 
   if (btnNext) {
@@ -110,7 +125,8 @@ function initDoctorGallery() {
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', () => {
       const idx = parseInt(thumb.getAttribute('data-index'), 10);
-      showSlide(idx);
+      const dir = idx >= currentSlide ? 'next' : 'prev';
+      showSlide(idx, dir);
       resetTimer();
     });
   });

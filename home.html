@@ -163,61 +163,44 @@
         <div class="grid grid-2 gap-lg align-center">
           
           <!-- GALERIA INTERATIVA DE FOTOS CLÍNICAS -->
-          <div class="doctor-gallery-container" style="max-width: 440px; margin: 0 auto; width: 100%;">
+          <div class="doctor-gallery-container">
             <!-- Moldura Principal em Destaque -->
-            <div class="gallery-main-frame" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid var(--color-gold); box-shadow: var(--shadow-lg); background: var(--color-bg-dark);">
+            <div class="gallery-main-frame">
               
-              <!-- Container de Rolagem Horizontal Fluida (Track) -->
-              <div class="gallery-track" id="galleryTrack" style="display: flex; width: 100%; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-                
-                <!-- Slide 1: Prática Clínica & Modelo Gastro -->
-                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
-                  <img src="./assets/images/simara_gastro.jpg" alt="Dra. Simara Almeida no consultório com modelo anatômico gastrointestinal" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🩺 Prática Clínica &amp; Eixo Intestinal</span>
-                  </div>
-                </div>
+              <!-- Slide 1: Prática Clínica & Modelo Gastro -->
+              <div class="gallery-slide active" data-slide="0">
+                <img src="./assets/images/simara_gastro.jpg" alt="Dra. Simara Almeida no consultório com modelo anatômico gastrointestinal" class="gallery-img">
+              </div>
 
-                <!-- Slide 2: Acolhimento e Consulta Presencial -->
-                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
-                  <img src="./assets/images/simara_almeida.jpg" alt="Dra. Simara Almeida em atendimento clínico" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🛋️ Acolhimento &amp; Consulta Funcional</span>
-                  </div>
-                </div>
+              <!-- Slide 2: Acolhimento e Consulta Presencial -->
+              <div class="gallery-slide" data-slide="1">
+                <img src="./assets/images/simara_almeida.jpg" alt="Dra. Simara Almeida em atendimento clínico" class="gallery-img">
+              </div>
 
-                <!-- Slide 3: Estilo de Vida & Longevidade -->
-                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
-                  <img src="./assets/images/simara_tea.jpg" alt="Dra. Simara Almeida — Estilo de Vida e Saúde Integrativa" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🍵 Estilo de Vida, Saúde &amp; Longevidade</span>
-                  </div>
-                </div>
-
+              <!-- Slide 3: Estilo de Vida & Longevidade -->
+              <div class="gallery-slide" data-slide="2">
+                <img src="./assets/images/simara_tea.jpg" alt="Dra. Simara Almeida — Estilo de Vida e Saúde Integrativa" class="gallery-img">
               </div>
 
               <!-- Botões de Navegação Flutuantes -->
-              <button type="button" class="gallery-nav-btn prev" id="galleryPrev" aria-label="Foto anterior" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(16,43,40,0.85); color: var(--color-gold); border: 1.5px solid var(--color-gold); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 5;">
-                <ion-icon name="chevron-back-outline" style="font-size: 1.3rem;"></ion-icon>
+              <button type="button" class="gallery-nav-btn prev" id="galleryPrev" aria-label="Foto anterior">
+                <ion-icon name="chevron-back-outline"></ion-icon>
               </button>
-              <button type="button" class="gallery-nav-btn next" id="galleryNext" aria-label="Próxima foto" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(16,43,40,0.85); color: var(--color-gold); border: 1.5px solid var(--color-gold); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 5;">
-                <ion-icon name="chevron-forward-outline" style="font-size: 1.3rem;"></ion-icon>
+              <button type="button" class="gallery-nav-btn next" id="galleryNext" aria-label="Próxima foto">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
               </button>
             </div>
 
             <!-- Miniaturas Clicáveis Abaixo -->
-            <div class="gallery-thumbnails" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.8rem;">
-              <div class="gallery-thumb" data-index="0" style="border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--color-gold); cursor: pointer; opacity: 1; transition: all 0.2s ease; aspect-ratio: 1/1;">
-                <img src="./assets/images/simara_gastro.jpg" alt="Miniatura Gastro" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="gallery-thumbnails">
+              <div class="gallery-thumb active" data-index="0">
+                <img src="./assets/images/simara_gastro.jpg" alt="Miniatura 1">
               </div>
-              <div class="gallery-thumb" data-index="1" style="border-radius: var(--radius-sm); overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.55; transition: all 0.2s ease; aspect-ratio: 1/1;">
-                <img src="./assets/images/simara_almeida.jpg" alt="Miniatura Consulta" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <div class="gallery-thumb" data-index="1">
+                <img src="./assets/images/simara_almeida.jpg" alt="Miniatura 2">
               </div>
-              <div class="gallery-thumb" data-index="2" style="border-radius: var(--radius-sm); overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.55; transition: all 0.2s ease; aspect-ratio: 1/1;">
-                <img src="./assets/images/simara_tea.jpg" alt="Miniatura Chá" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <div class="gallery-thumb" data-index="2">
+                <img src="./assets/images/simara_tea.jpg" alt="Miniatura 3">
               </div>
             </div>
           </div>
