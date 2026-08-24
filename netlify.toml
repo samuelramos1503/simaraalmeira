@@ -1,0 +1,2 @@
+[build.environment]
+  NETLIFY_FEEDBACK_WIDGET = "false"

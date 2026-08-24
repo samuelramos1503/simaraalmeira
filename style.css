@@ -1,0 +1,687 @@
+/* ==========================================================================
+   Simara Almeida — Nutricionista Funcional & Gastroenterologia
+   Instagram: @simaraalmeidanutri
+   WhatsApp: (33) 99978-3832 (5533999783832)
+   Endereço: Rua Monsenhor Gonzalez, 14 - Sl 402 - Centro, Manhuaçu - MG
+
+   Cores Extraídas da Logo & Estilo Arquitetônico:
+   - Fundo do Body: Verde Petróleo Profundo / Eucalipto (#173c38 / #112e2b)
+   - Cards & Caixas: Branco Puro / Marfim Claro (#ffffff / #fcfbf9)
+   - Dourado Champagne Oficial da Logo: #c5a059 / #d4af37
+   - Dourado Suave: rgba(197, 160, 89, 0.15)
+   - Texto Escuro nos Cards: #173c38
+
+   Tipografia:
+   - Títulos & Destaques: 'Playfair Display', Georgia, serif
+   - Corpo & UI: 'Plus Jakarta Sans', sans-serif
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Fundo Principal do Site (Verde Petróleo da Arquitetura / Logo) */
+  --color-bg-dark: #173c38;         /* Verde Petróleo Rico */
+  --color-bg-dark-alt: #102b28;     /* Verde Petróleo Noturno */
+  --color-bg-darker: #0b1e1c;
+
+  /* Cards & Caixas (Branco Puríssimo) */
+  --color-card-white: #ffffff;
+  --color-card-linen: #fbf9f5;
+  --color-card-alt: #f3efe6;
+
+  /* Dourado Champagne da Logo */
+  --color-gold: #c5a059;
+  --color-gold-hover: #b08d46;
+  --color-gold-light: #e2cb96;
+  --color-gold-soft: rgba(197, 160, 89, 0.18);
+
+  /* Texto */
+  --color-text-light: #ffffff;
+  --color-text-muted-light: #cbe3df;
+  --color-text-dark: #173c38;
+  --color-text-muted-dark: #41615d;
+
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #20ba5a;
+
+  --color-open: #10b981;
+  --color-closed: #ef4444;
+  --color-star: #fbbf24;
+
+  /* Tipografia */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.35);
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* RESET & BASE */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--color-gold);
+  color: #173c38;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: 800;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus { top: 20px; }
+
+/* TYPOGRAPHY */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 em, h2 em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+
+p { margin-bottom: 1rem; }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* LAYOUT CONTAINER */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section { padding: 5.5rem 0; position: relative; }
+.section-alt { background-color: var(--color-bg-dark-alt); }
+.section-darker { background-color: var(--color-bg-darker); }
+
+.section-header { margin-bottom: 3.2rem; }
+.section-title { font-size: clamp(2.2rem, 4vw, 3rem); margin-top: 0.4rem; font-weight: 700; color: #ffffff; }
+.section-lead { font-size: 1.08rem; color: var(--color-text-muted-light); max-width: 680px; margin: 0.6rem auto 0; }
+
+.text-center { text-align: center; }
+
+/* KICKER BADGES */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  background: var(--color-gold-soft);
+  padding: 0.45rem 1.15rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+}
+
+.grid { display: grid; gap: 2rem; }
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+.grid-4 { grid-template-columns: 1fr; }
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 992px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.align-center { align-items: center; }
+.gap-lg { gap: 3.5rem; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.88rem 1.7rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.btn-primary { background-color: var(--color-gold); color: #173c38; font-weight: 800; }
+.btn-primary:hover { background-color: var(--color-gold-hover); color: #ffffff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(197, 160, 89, 0.45); }
+
+.btn-secondary { background-color: #ffffff; color: var(--color-text-dark); border-color: rgba(197, 160, 89, 0.35); font-weight: 800; }
+.btn-secondary:hover { background: var(--color-card-linen); border-color: var(--color-gold); transform: translateY(-2px); }
+
+.btn-whatsapp { background-color: var(--color-whatsapp); color: #ffffff; }
+.btn-whatsapp:hover { background-color: var(--color-whatsapp-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35); }
+
+.btn-sm { font-size: 0.85rem; padding: 0.55rem 1.1rem; }
+.btn-lg { font-size: 1.05rem; padding: 1rem 2.2rem; }
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--color-open);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* HEADER FIXO — BRANCO SUAVE COM LINHA DOURADA */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0.75rem 0;
+  transition: all var(--transition-normal);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid var(--color-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.header-container { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 0.9rem; }
+
+.brand-logo-img {
+  height: 48px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.brand-info { display: flex; flex-direction: column; }
+.brand-name { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 800; color: var(--color-text-dark); line-height: 1.1; letter-spacing: -0.01em; }
+.brand-sub { font-size: 0.72rem; color: var(--color-gold); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+
+.nav-wrapper { display: flex; align-items: center; gap: 1.5rem; }
+.nav { display: flex; align-items: center; gap: 1.5rem; }
+.nav-link { font-size: 0.92rem; font-weight: 700; color: var(--color-text-dark); transition: color var(--transition-fast); }
+.nav-link:hover { color: var(--color-gold); }
+
+.burger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px; }
+.burger span { display: block; width: 24px; height: 2px; background-color: var(--color-text-dark); border-radius: 2px; }
+
+@media (max-width: 991px) {
+  .burger { display: flex; }
+  .nav {
+    position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh;
+    background: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    flex-direction: column; align-items: flex-start; padding: 5.5rem 2rem 2rem; gap: 1.3rem; transition: right var(--transition-normal);
+  }
+  .nav.open { right: 0; }
+  .nav-link { font-size: 1.05rem; width: 100%; color: var(--color-text-dark); }
+}
+
+/* HERO SECTION */
+.hero {
+  padding-top: 8.5rem;
+  padding-bottom: 5.5rem;
+  position: relative;
+  background: linear-gradient(135deg, #173c38 0%, #102b28 60%, #0b1e1c 100%);
+  overflow: hidden;
+}
+
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+@media (min-width: 992px) { .hero-grid { grid-template-columns: 1.15fr 0.85fr; } }
+
+.hero-title {
+  font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+  margin: 1rem 0 1.2rem;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.hero-description {
+  font-size: 1.12rem;
+  color: var(--color-text-muted-light);
+  margin-bottom: 2.2rem;
+  line-height: 1.65;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+
+.hero-showcase {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* CARD EM DESTAQUE NO HERO — BRANCO PURO COM BORDA DOURADA */
+.showcase-card {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  border: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+.showcase-badge {
+  display: inline-block;
+  background: var(--color-gold);
+  color: #173c38;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* CAROUSEL HIGHLIGHTS */
+.highlights-scroll {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding: 0.5rem 1rem 1.2rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+  scroll-snap-type: x mandatory;
+}
+
+@media (min-width: 768px) {
+  .highlights-scroll {
+    justify-content: center;
+  }
+}
+
+.highlights-scroll::-webkit-scrollbar { height: 6px; }
+.highlights-scroll::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 10px; }
+
+.highlight-item {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95px;
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+.highlight-circle {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(45deg, #c5a059, #ffffff, #c5a059);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+.highlight-circle:hover { transform: scale(1.08); }
+
+.highlight-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--color-text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  border: 2px solid var(--color-gold);
+}
+
+.highlight-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-top: 0.5rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* TABELA DE MODALIDADES DE CONSULTAS / PLANOS */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+  }
+}
+
+.pricing-card {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.8rem;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-gold);
+}
+
+.pricing-card.featured {
+  border: 2.5px solid var(--color-gold);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%);
+  transform: scale(1.03);
+}
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-6px);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-gold);
+  color: #173c38;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.pricing-header {
+  border-bottom: 1px solid rgba(23, 60, 56, 0.1);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.pricing-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--color-text-dark);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.pricing-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-muted-dark);
+  line-height: 1.5;
+}
+
+.pricing-price {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  margin: 1rem 0 0.3rem;
+  font-family: var(--font-sans);
+}
+.pricing-price small {
+  font-size: 0.85rem;
+  color: var(--color-text-muted-dark);
+  font-weight: 600;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pricing-features li {
+  font-size: 0.92rem;
+  color: var(--color-text-dark);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.45;
+}
+
+.pricing-features li ion-icon {
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CARDS GERAIS BRANCOS (PASSO A PASSO, ESPECIALIDADES, ULTRASSOM) */
+.feature-card {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-md);
+  padding: 2.2rem 1.8rem;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.feature-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--color-text-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.feature-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-muted-dark);
+  line-height: 1.6;
+}
+
+/* SEÇÃO BODY METRIX (ULTRASSOM) */
+.tech-banner {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  border: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-lg);
+}
+
+/* AVALIAÇÕES GOOGLE COM SCROLL LATERAL NO CELULAR */
+#avaliacoes .catalog-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.8rem;
+}
+
+@media (max-width: 768px) {
+  #avaliacoes .catalog-grid {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding: 0.5rem 0.5rem 1.5rem !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #avaliacoes .review-card {
+    flex: 0 0 85% !important;
+    max-width: 85% !important;
+    scroll-snap-align: center;
+  }
+}
+
+.review-card {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 270px;
+  max-width: 360px;
+  width: 100%;
+}
+.review-stars { color: var(--color-star); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
+.review-text { font-size: 0.94rem; color: var(--color-text-muted-dark); font-style: italic; margin-bottom: 1.2rem; line-height: 1.6; }
+.review-author { display: flex; align-items: center; gap: 0.8rem; border-top: 1px solid rgba(23, 60, 56, 0.1); padding-top: 1rem; }
+.author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--color-gold); color: #173c38; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+.author-info strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--color-text-dark); }
+.author-info span { font-size: 0.75rem; color: var(--color-text-muted-dark); }
+
+/* LOCALIZAÇÃO E HORÁRIOS */
+.store-card {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  border: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-lg);
+}
+.store-card h3 { color: var(--color-text-dark); font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 0.6rem; }
+.store-address { font-size: 0.92rem; color: var(--color-text-muted-dark); margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+
+/* FAQ SANFONA */
+.faq-item {
+  background: var(--color-card-white);
+  color: var(--color-text-dark);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.2rem;
+  font-size: 0.94rem;
+  color: var(--color-text-muted-dark);
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-item.active .faq-question ion-icon {
+  transform: rotate(180deg);
+}
+
+/* FOOTER */
+.footer { background: var(--color-bg-darker); color: var(--color-text-muted-light); padding: 4rem 0 2rem; border-top: 1px solid rgba(197, 160, 89, 0.3); }
+.footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 2.5rem; }
+.footer-title { color: #ffffff; font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.8rem; }
+.footer-col a:hover { color: var(--color-gold); }
+
+/* WHATSAPP FLOAT BUTTON */
+.whatsapp-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-whatsapp);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  z-index: 999;
+  transition: all var(--transition-fast);
+}
+.whatsapp-float:hover { transform: scale(1.1); background-color: var(--color-whatsapp-hover); }
+.whatsapp-icon { width: 34px; height: 34px; }
