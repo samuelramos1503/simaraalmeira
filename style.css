@@ -221,7 +221,7 @@ a {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* HEADER FIXO — BRANCO SUAVE COM LINHA DOURADA */
+/* HEADER FIXO — BRANCO GELO / CINZA PLATINUM ELEGANTE COM LINHA DOURADA */
 .header {
   position: fixed;
   top: 0;
@@ -230,11 +230,11 @@ a {
   z-index: 1000;
   padding: 0.75rem 0;
   transition: all var(--transition-normal);
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(235, 240, 239, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 2px solid var(--color-gold);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .header-container { display: flex; align-items: center; justify-content: space-between; }
@@ -243,8 +243,8 @@ a {
 .brand-logo-img {
   height: 48px;
   width: auto;
-  border-radius: 6px;
   object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
 }
 
 .brand-info { display: flex; flex-direction: column; }
@@ -263,7 +263,7 @@ a {
   .burger { display: flex; }
   .nav {
     position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh;
-    background: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    background: #ebf0ef; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
     flex-direction: column; align-items: flex-start; padding: 5.5rem 2rem 2rem; gap: 1.3rem; transition: right var(--transition-normal);
   }
   .nav.open { right: 0; }
