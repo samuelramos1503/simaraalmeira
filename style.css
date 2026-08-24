@@ -272,20 +272,20 @@ a {
 
 /* HERO SECTION */
 .hero {
-  padding-top: 6.5rem;
-  padding-bottom: 4rem;
+  padding-top: 7.2rem;
+  padding-bottom: 5rem;
   position: relative;
   background: linear-gradient(135deg, #173c38 0%, #102b28 60%, #0b1e1c 100%);
   overflow: hidden;
 }
 
-.hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: start; }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
 @media (min-width: 992px) { .hero-grid { grid-template-columns: 1.15fr 0.85fr; } }
 
 .hero-title {
-  font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+  font-size: clamp(2.3rem, 4.2vw, 3.4rem);
   margin: 0 0 1.2rem;
-  line-height: 1.15;
+  line-height: 1.18;
   color: #ffffff;
 }
 
