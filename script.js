@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initDoctorGallery() {
+  const track = document.getElementById('galleryTrack');
   const slides = document.querySelectorAll('.gallery-slide');
   const thumbs = document.querySelectorAll('.gallery-thumb');
   const btnPrev = document.getElementById('galleryPrev');
@@ -62,8 +63,12 @@ function initDoctorGallery() {
     if (index >= slides.length) index = 0;
     currentSlide = index;
 
+    // Rolagem horizontal fluida do carrossel
+    if (track) {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
     slides.forEach((slide, i) => {
-      slide.style.display = i === currentSlide ? 'block' : 'none';
       slide.classList.toggle('active', i === currentSlide);
     });
 
@@ -71,7 +76,7 @@ function initDoctorGallery() {
       if (i === currentSlide) {
         thumb.style.borderColor = 'var(--color-gold)';
         thumb.style.opacity = '1';
-        thumb.style.transform = 'scale(1.03)';
+        thumb.style.transform = 'scale(1.05)';
       } else {
         thumb.style.borderColor = 'transparent';
         thumb.style.opacity = '0.55';

@@ -172,31 +172,36 @@
             <!-- Moldura Principal em Destaque -->
             <div class="gallery-main-frame" style="position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid var(--color-gold); box-shadow: var(--shadow-lg); background: var(--color-bg-dark);">
               
-              <!-- Slide 1: Prática Clínica & Modelo Gastro -->
-              <div class="gallery-slide active" data-slide="0" style="display: block; position: relative;">
-                <img src="./assets/images/simara_gastro.jpg" alt="Dra. Simara Almeida no consultório com modelo anatômico gastrointestinal" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                  <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                  <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🩺 Prática Clínica &amp; Eixo Intestinal</span>
+              <!-- Container de Rolagem Horizontal Fluida (Track) -->
+              <div class="gallery-track" id="galleryTrack" style="display: flex; width: 100%; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+                
+                <!-- Slide 1: Prática Clínica & Modelo Gastro -->
+                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
+                  <img src="./assets/images/simara_gastro.jpg" alt="Dra. Simara Almeida no consultório com modelo anatômico gastrointestinal" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
+                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
+                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
+                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🩺 Prática Clínica &amp; Eixo Intestinal</span>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Slide 2: Acolhimento e Consulta Presencial -->
-              <div class="gallery-slide" data-slide="1" style="display: none; position: relative;">
-                <img src="./assets/images/simara_almeida.jpg" alt="Dra. Simara Almeida em atendimento clínico" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                  <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                  <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🛋️ Acolhimento &amp; Consulta Funcional</span>
+                <!-- Slide 2: Acolhimento e Consulta Presencial -->
+                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
+                  <img src="./assets/images/simara_almeida.jpg" alt="Dra. Simara Almeida em atendimento clínico" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
+                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
+                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
+                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🛋️ Acolhimento &amp; Consulta Funcional</span>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Slide 3: Estilo de Vida & Longevidade -->
-              <div class="gallery-slide" data-slide="2" style="display: none; position: relative;">
-                <img src="./assets/images/simara_tea.jpg" alt="Dra. Simara Almeida — Estilo de Vida e Saúde Integrativa" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
-                <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
-                  <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
-                  <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🍵 Estilo de Vida, Saúde &amp; Longevidade</span>
+                <!-- Slide 3: Estilo de Vida & Longevidade -->
+                <div class="gallery-slide" style="min-width: 100%; flex-shrink: 0; position: relative;">
+                  <img src="./assets/images/simara_tea.jpg" alt="Dra. Simara Almeida — Estilo de Vida e Saúde Integrativa" style="width: 100%; height: auto; display: block; aspect-ratio: 2/3; object-fit: cover;">
+                  <div class="gallery-badge-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(16,43,40,0.95), transparent); padding: 2.2rem 1.2rem 1.1rem; text-align: center;">
+                    <strong style="font-family: var(--font-serif); font-size: 1.25rem; color: #ffffff; display: block;">Dra. Simara Almeida</strong>
+                    <span style="font-size: 0.82rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">🍵 Estilo de Vida, Saúde &amp; Longevidade</span>
+                  </div>
                 </div>
+
               </div>
 
               <!-- Botões de Navegação Flutuantes -->
@@ -365,6 +370,73 @@
               Tudo começa no intestino: recuperação da mucosa, disbiose e imunologia para prevenção e tratamento de condições autoimunes e inflamatórias.
             </p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BLOCO DESTAQUE: O EIXO INTESTINAL & CONDIÇÕES FREQUENTES (ÁUDIOS 2 E 5) ==================== -->
+    <section class="section section-darker" style="border-top: 1px solid rgba(197, 160, 89, 0.25); border-bottom: 1px solid rgba(197, 160, 89, 0.25);">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="kicker" style="background: rgba(197,160,89,0.2); color: var(--color-gold); border-color: var(--color-gold);">EIXO INTESTINAL &amp; SAÚDE DA MULHER</span>
+          <h2 class="section-title">Por Que Tudo Começa <em>no Intestino?</em></h2>
+          <p class="section-lead" style="max-width: 780px; margin: 0.8rem auto 0;">
+            O intestino é o primeiro órgão a inflamar e ficar disbiótico. Quando a barreira intestinal perde integridade, toxinas caem na corrente sanguínea, desregulando hormônios ovarianos, proliferando fungos e travando o metabolismo.
+          </p>
+        </div>
+
+        <div class="grid grid-3 gap-lg" style="margin-top: 2rem;">
+          <!-- Card 1: Campeãs na Saúde da Mulher -->
+          <div style="background: rgba(255,255,255,0.04); border: 1.5px solid var(--color-gold); border-radius: var(--radius-md); padding: 2rem 1.6rem; display: flex; flex-direction: column;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.8rem;">🌸👑</div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--color-gold); margin-bottom: 0.6rem;">Saúde da Mulher (Campeãs de Procura)</h3>
+            <p style="font-size: 0.92rem; color: var(--color-text-muted-light); line-height: 1.65; margin-bottom: 1rem;">
+              As principais queixas clínicas no consultório estão intimamente conectadas à inflamação intestinal:
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: #ffffff;">
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Endometriose:</strong> Modulação anti-inflamatória profunda para redução das dores e estrogênio dominante.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>SOP (Ovário Policístico):</strong> Controle da resistência à insulina, ciclo menstrual, acne e queda capilar.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Candidíase de Repetição &amp; Infecção Urinária:</strong> Tratamento da disbiose vaginal que nasce no trato intestinal.</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: SIBO, SIFO & Trato Gastrointestinal -->
+          <div style="background: rgba(255,255,255,0.04); border: 1.5px solid var(--color-gold); border-radius: var(--radius-md); padding: 2rem 1.6rem; display: flex; flex-direction: column;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.8rem;">🦠🔬</div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--color-gold); margin-bottom: 0.6rem;">Gastroenterologia: SIBO &amp; SIFO</h3>
+            <p style="font-size: 0.92rem; color: var(--color-text-muted-light); line-height: 1.65; margin-bottom: 1rem;">
+              Tratamento avançado para desordens que afetam tanto o estômago quanto o intestino:
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: #ffffff;">
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>SIBO &amp; SIFO:</strong> Supercrescimento Bacteriano e Fúngico no intestino delgado — alívio de estufamento severo e gases.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Gastrite, Pangastrite &amp; <em>H. pylori</em>:</strong> Cicatrização da mucosa gástrica e modulação da acidez.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Síndrome do Intestino Irritável (SII):</strong> Regulação do trânsito intestinal e tolerância alimentar.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Imunidade, Autoimunes & Metabolismo -->
+          <div style="background: rgba(255,255,255,0.04); border: 1.5px solid var(--color-gold); border-radius: var(--radius-md); padding: 2rem 1.6rem; display: flex; flex-direction: column;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.8rem;">🛡️⚖️</div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--color-gold); margin-bottom: 0.6rem;">Imunidade &amp; Doenças Autoimunes</h3>
+            <p style="font-size: 0.92rem; color: var(--color-text-muted-light); line-height: 1.65; margin-bottom: 1rem;">
+              Mais de 70% das células do sistema imunológico residem no tecido intestinal:
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: #ffffff;">
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Controle de Autoimunes:</strong> Hashimoto, dermatites, psoríase e artrites gerenciadas na raiz intestinal.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Desinflamação &amp; Emagrecimento:</strong> Restauração da microbiota para queima de gordura eficiente.</li>
+              <li style="display: flex; gap: 0.5rem;"><span style="color: var(--color-gold); font-weight: bold;">•</span> <strong>Eixo Intestino-Cérebro:</strong> Produção de 90% da serotonina corporal para melhora do humor e disposição.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Banner com Citação Central dos Áudios -->
+        <div style="margin-top: 2.5rem; background: linear-gradient(135deg, rgba(16,43,40,0.9), rgba(11,30,28,0.95)); border: 2px solid var(--color-gold); border-radius: var(--radius-lg); padding: 2rem 2.5rem; text-align: center; box-shadow: var(--shadow-md);">
+          <p style="font-family: var(--font-serif); font-size: clamp(1.15rem, 2.2vw, 1.4rem); color: #ffffff; line-height: 1.6; margin-bottom: 0.6rem; font-style: italic;">
+            “Para tratar qualquer condição no organismo — seja no estômago, nos hormônios femininos ou na imunidade —, precisamos recuperar o intestino. Todos os desequilíbrios nascem ali e se recuperam ali.”
+          </p>
+          <span style="font-size: 0.9rem; color: var(--color-gold); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;">
+            — Dra. Simara Almeida • Nutricionista Especialista em Gastroenterologia &amp; Saúde da Mulher
+          </span>
         </div>
       </div>
     </section>
